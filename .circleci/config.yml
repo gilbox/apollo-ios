@@ -163,6 +163,16 @@ jobs:
       CIRCLE_XCODE_SDK: iphonesimulator13.1
     steps:
       - common_test_steps
+      
+  CodegenLibmacOS10_15:
+    macos:
+      xcode: "11.1.0"
+    environment:
+      DESTINATION: platform=macOS,arch=x86_64
+      CIRCLE_XCODE_SCHEME: ApolloCodegenLib
+      CIRCLE_XCODE_SDK: macosx10.15
+    steps:
+      - common_test_steps
 
   CocoaPodsTrunk:
     macos:
@@ -206,6 +216,8 @@ workflows:
           name: ApolloWebSocket iOS 12.4
       - WebSocketiOS11_4:
           name: ApolloWebSocket iOS 11.4
+      - CodegenLibmacOS10_15:
+          name: Swift Code Generation
       - CocoaPodsTrunk:
           name: Push Podspec to CocoaPods Trunk
           requires:
@@ -222,6 +234,7 @@ workflows:
             - ApolloWebSocket iOS 13.1
             - ApolloWebSocket iOS 12.4
             - ApolloWebSocket iOS 11.4
+            - Swift Code Generation
           filters:
             # Only build semver tags
             tags:
